@@ -13,13 +13,13 @@ I suggest using the data container methodology.
 So first we create a data only container for /srv.
 
 ```bash
-vagrant@host1:~$ docker run -v /srv --name SWIFT_DATA curtis/swift-onlyone
+vagrant@host1:~$ docker run -v /srv --name SWIFT_DATA tburnett80/swift-onlyone
 ```
 
-Now that we have a data container, we can use the "--volumes-from" option when creating the "onlyone" container. Note that in this case I've called the image built from this docker file "curtis/swift-onlyone".
+Now that we have a data container, we can use the "--volumes-from" option when creating the "onlyone" container. Note that in this case I've called the image built from this docker file "tburnett80/swift-onlyone".
 
 ```bash
-vagrant@host1:~$ ID=$(docker run --name onlyone --hostname onlyone -d -p 12345:8080 --volumes-from SWIFT_DATA -t curtis/swift-onlyone)
+vagrant@host1:~$ ID=$(docker run --name onlyone --hostname onlyone -d -p 12345:8080 --volumes-from SWIFT_DATA -t tburnett80/swift-onlyone)
 ```
 
 With that container running we can now check the logs.
@@ -57,7 +57,7 @@ At this point OpenStack Swift is running.
 ```bash
 vagrant@host1:~$ docker ps
 CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                     NAMES
-4941f8cd8b48        curtis/swift-onlyone:latest   /bin/sh -c /usr/loca   58 seconds ago      Up 57 seconds       0.0.0.0:12345->8080/tcp   hopeful_brattain
+4941f8cd8b48        tburnett80/swift-onlyone:latest   /bin/sh -c /usr/loca   58 seconds ago      Up 57 seconds       0.0.0.0:12345->8080/tcp   hopeful_brattain
 ```
 
 We can now use the swift python client to access Swift using the Docker forwarded port, in this example port 12345.
